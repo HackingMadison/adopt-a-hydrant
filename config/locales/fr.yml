@@ -6,6 +6,7 @@ fr:
     adopt: "Adopter!"
     back: "Retour"
     change_password: "Changer mon mot de passe"
+    close: "Fermer"
     edit_profile: "Modifier le profil"
     email_password: "Envoyez-moi mon mot de passe"
     find: "Trouver %{thing}"
@@ -82,5 +83,9 @@ fr:
     thank_you: "Merci pour l'adoption de cette %{thing}!"
     tos: "Conditions d'utilisation"
   sponsors:
+    built: "Construit à Boston"
     cfa: "Code pour l'Amérique"
     city: "Ville de Boston"
+    mayor:
+      name: "Thomas M. Menino"
+      title: "Mayor"

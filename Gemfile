@@ -1,35 +1,34 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
-gem 'rails', '~> 3.1.10'
+gem 'rails', '~> 3.2'
 
 gem 'arel'
 gem 'devise'
 gem 'geokit'
-gem 'haml', '~> 3.2.0.alpha'
+gem 'haml'
+gem 'http_accept_language'
 gem 'pg'
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-gem 'rack-contrib'
+gem 'rails_admin'
+gem 'strong_parameters'
 gem 'validates_formatting_of'
-
-platforms :jruby do
-  gem 'jruby-openssl'
-  gem 'therubyrhino'
-end
 
 platforms :ruby_18 do
   gem 'fastercsv'
 end
 
 group :assets do
+  gem 'sass-rails'
   gem 'uglifier'
 end
 
 group :production do
-  gem 'thin'
+  gem 'puma'
 end
 
 group :test do
-  gem 'simplecov'
+  gem 'coveralls', :require => false
+  gem 'simplecov', :require => false
   gem 'sqlite3'
   gem 'webmock'
 end

@@ -1,27 +1,74 @@
-# Adopt-a-Hydrant [![Build Status](https://secure.travis-ci.org/codeforamerica/adopt-a-hydrant.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/codeforamerica/adopt-a-hydrant.png?travis)][gemnasium]
-Claim responsibility for shoveling out a fire hydrant after it snows.
+# Adopt-a-Hydrant
+
+[![Build Status](https://secure.travis-ci.org/codeforamerica/adopt-a-hydrant.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/codeforamerica/adopt-a-hydrant.png?travis)][gemnasium]
+[![Coverage Status](https://coveralls.io/repos/codeforamerica/adopt-a-hydrant/badge.png?branch=master)][coveralls]
 
 [travis]: http://travis-ci.org/codeforamerica/adopt-a-hydrant
 [gemnasium]: https://gemnasium.com/codeforamerica/adopt-a-hydrant
+[coveralls]: https://coveralls.io/r/codeforamerica/adopt-a-hydrant
 
-## <a name="screenshots"></a>Screenshot
+Claim responsibility for shoveling out a fire hydrant after it snows.
+
+## Screenshot
 ![Adopt-a-Hydrant](https://github.com/codeforamerica/adopt-a-hydrant/raw/master/screenshot.png "Adopt-a-Hydrant")
 
-## <a name="demo"></a>Demo
+## Demo
 You can see a running version of the application at
 [http://adopt-a-hydrant.herokuapp.com/][demo].
 
 [demo]: http://adopt-a-hydrant.herokuapp.com/
 
-## <a name="installation"></a>Installation
+## Installation
+This application requires [Postgres](http://www.postgresql.org/) to be installed
+
     git clone git://github.com/codeforamerica/adopt-a-hydrant.git
     cd adopt-a-hydrant
     bundle install
 
-## <a name="usage"></a>Usage
+    bundle exec rake db:create
+    bundle exec rake db:schema:load
+
+## Usage
     rails server
 
-## <a name="contributing"></a>Contributing
+## Seed Data
+    bundle exec rake db:seed
+
+## Deploying to Heroku
+A successful deployment to Heroku requires a few setup steps:
+
+1. Generate a new secret token:
+
+    ```
+    rake secret
+    ```
+
+2. Set the token on Heroku:
+
+    ```
+    heroku config:set SECRET_TOKEN=the_token_you_generated
+    ```
+
+3. [Precompile your assets](https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar)
+
+    ```
+    RAILS_ENV=production bundle exec rake assets:precompile
+
+    git add public/assets
+
+    git commit -m "vendor compiled assets"
+    ```
+
+4. Add a production database to config/database.yml
+
+5. Seed the production db:
+
+    `heroku run bundle exec rake db:seed`
+
+6. Keep in mind that the Heroku free Postgres plan only allows up to 10,000 rows, so if your city has more than 10,000 fire hydrants (or other thing to be adopted), you will need to upgrade to the $9/month plan.
+
+## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
 improve this project.
 
@@ -46,45 +93,39 @@ Here are some ways *you* can contribute:
 [issues]: https://github.com/codeforamerica/adopt-a-hydrant/issues
 [financially]: https://secure.codeforamerica.org/page/contribute
 
-## <a name="issues"></a>Submitting an Issue
+## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include a [Gist][] that
-includes a stack trace and any details that may be necessary to reproduce the
-bug, including your gem version, Ruby version, and operating system. Ideally, a
-bug report should include a pull request with failing specs.
+already been submitted. When submitting a bug report, please include a [Gist][]
+that includes a stack trace and any details that may be necessary to reproduce
+the bug, including your gem version, Ruby version, and operating system.
+Ideally, a bug report should include a pull request with failing specs.
 
 [gist]: https://gist.github.com/
 
-## <a name="pulls"></a>Submitting a Pull Request
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Add tests for your feature or bug fix.
-5. Run `bundle exec rake test`. If your changes are not 100% covered, go back
-   to step 4.
-6. Commit and push your changes.
-7. Submit a pull request. Please do not include changes to the gemspec or
-   version file. (If you want to create your own version for some reason,
-   please do so in a separate commit.)
+## Submitting a Pull Request
+1. [Fork the repository.][fork]
+2. [Create a topic branch.][branch]
+3. Add specs for your unimplemented feature or bug fix.
+4. Run `bundle exec rake test`. If your specs pass, return to step 3.
+5. Implement your feature or bug fix.
+6. Run `bundle exec rake test`. If your specs fail, return to step 5.
+7. Run `open coverage/index.html`. If your changes are not completely covered
+   by your tests, return to step 3.
+8. Add, commit, and push your changes.
+9. [Submit a pull request.][pr]
 
-## <a name="versions"></a>Supported Ruby Versions
-This library aims to support and is [tested against][travis] the following Ruby
-implementations:
+[fork]: http://help.github.com/fork-a-repo/
+[branch]: http://learn.github.com/p/branching.html
+[pr]: http://help.github.com/send-pull-requests/
 
-* Ruby 1.9.2
-* Ruby 1.9.3
-* [Rubinius][] (in 1.9 mode)
+## Supported Ruby Version
+This library aims to support and is [tested against][travis] Ruby version 1.9.3.
 
-[rubinius]: http://rubini.us/
-
-If something doesn't work on one of these interpreters, it should be considered
-a bug.
+If something doesn't work on this version, it should be considered a bug.
 
 This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
-above.
+implementations, however support will only be provided for the version above.
 
 If you would like this library to support another Ruby version, you may
 volunteer to be a maintainer. Being a maintainer entails making sure all tests
@@ -93,8 +134,8 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
-## <a name="copyright"></a>Copyright
-Copyright (c) 2011 Code for America. See [LICENSE][] for details.
+## Copyright
+Copyright (c) 2012 Code for America. See [LICENSE][] for details.
 
 [license]: https://github.com/codeforamerica/adopt-a-hydrant/blob/master/LICENSE.md
 
