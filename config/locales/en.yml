@@ -83,9 +83,10 @@ en:
     thank_you: "Thank you for adopting this %{thing}!"
     tos: "Terms of Service"
   sponsors:
-    built: "Built in Boston"
+    built: "Built in Madison"
     cfa: "Code for America"
-    city: "City of Boston"
+    city: "City of Madison"
+    hm: "HackingMadison"
     mayor:
-      name: "Thomas M. Menino"
+      name: ""
       title: "Mayor"
